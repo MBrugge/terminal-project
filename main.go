@@ -66,7 +66,7 @@ func restartProgram() {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Stdin = os.Stdin
-	err := cmd.Start()
+	err := cmd.Run()
 	if err != nil {
 		fmt.Println("Error restarting the program:", err)
 	}
