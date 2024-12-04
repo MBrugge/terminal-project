@@ -11,13 +11,14 @@ import (
 )
 
 const (
-	helpCommand     = "help"
-	whereAmICommand = "whereami"
-	whoAmICommand   = "whoami"
-	videoCommand    = "video"
-	githubCommand   = "github"
-	resetCommand    = "reset"
-	exitCommand     = "exit"
+	helpCommand         = "help"
+	whereAmICommand     = "whereami"
+	whoAmICommand       = "whoami"
+	whoIsCreatorCommand = "whoiscreator"
+	videoCommand        = "video"
+	githubCommand       = "github"
+	resetCommand        = "reset"
+	exitCommand         = "exit"
 
 	// Colours
 	colourReset  = "\033[0m"
@@ -48,9 +49,10 @@ func handleCommand(input string) {
 	switch input {
 	case helpCommand:
 		printText(colourText("Available commands:", colourCyan))
-		printText(colourText("help - You know what this command does.", colourYellow))
+		printText(colourText("help - You know what this command does", colourYellow))
 		printText(colourText("whereami - Where am I right now?", colourYellow))
 		printText(colourText("whoami - Who am I?", colourYellow))
+		printText(colourText("whoiscreator - Who is the creator?", colourYellow))
 		printText(colourText("video - What could this be?", colourYellow))
 		printText(colourText("github - Go to my github", colourYellow))
 		printText(colourText("reset - Reset the program", colourYellow))
@@ -61,6 +63,9 @@ func handleCommand(input string) {
 
 	case whoAmICommand:
 		printText(colourText("That is something you find out every single day.", colourYellow))
+
+	case whoIsCreatorCommand:
+		printText(colourText("I am someone that likes to write and start various projects that seem like a fun challenge. I am reliable and a quick learner.", colourYellow))
 
 	case videoCommand:
 		printText(colourText("Opening video...", colourCyan))
