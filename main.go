@@ -11,9 +11,10 @@ import (
 )
 
 const (
-	helpCommand  = "help"
-	exitCommand  = "exit"
-	resetCommand = "reset"
+	helpCommand     = "help"
+	exitCommand     = "exit"
+	resetCommand    = "reset"
+	whereAmICommand = "whereami"
 
 	// Colours
 	colourReset  = "\033[0m"
@@ -45,8 +46,12 @@ func handleCommand(input string) {
 	case helpCommand:
 		printText(colourText("Available commands:", colourCyan))
 		printText(colourText("help - Show this help message", colourYellow))
-		printText(colourText("exit - Exit the program", colourYellow))
+		printText(colourText("whereami - Where am I right now?", colourYellow))
 		printText(colourText("reset - Reset the program", colourYellow))
+		printText(colourText("exit - Exit the program", colourYellow))
+
+	case whereAmICommand:
+		printText(colourText("You are presumably sitting, or standing, behind a device which has a terminal. You probably got here after finding my project and being intrigued. Whether this was curiosity or a want to find out more about me I cannot tell. I will welcome you all the same.", colourYellow))
 
 	case exitCommand:
 		printText(colourText("Goodbye", colourRed))
@@ -90,8 +95,16 @@ func colourText(text, colour string) string {
 }
 
 func printText(text string) {
+	lineLength := 80
+	currentLength := 0
+
 	for _, char := range text {
 		fmt.Print(string(char))
+		currentLength++
+		if currentLength >= lineLength && char == ' ' {
+			fmt.Println()
+			currentLength = 0
+		}
 		time.Sleep(25 * time.Millisecond)
 	}
 	fmt.Println()
