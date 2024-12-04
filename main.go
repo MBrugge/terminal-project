@@ -16,6 +16,7 @@ const (
 	resetCommand    = "reset"
 	whereAmICommand = "whereami"
 	whoAmICommand   = "whoami"
+	videoCommand    = "video"
 
 	// Colours
 	colourReset  = "\033[0m"
@@ -49,6 +50,7 @@ func handleCommand(input string) {
 		printText(colourText("help - You know what this command does", colourYellow))
 		printText(colourText("whereami - Where am I right now?", colourYellow))
 		printText(colourText("whoami - Who am I?", colourYellow))
+		printText(colourText("video - What could this be?", colourYellow))
 		printText(colourText("reset - Reset the program", colourYellow))
 		printText(colourText("exit - Exit the program", colourYellow))
 
@@ -57,6 +59,10 @@ func handleCommand(input string) {
 
 	case whoAmICommand:
 		printText(colourText("That is something you find out every single day.", colourYellow))
+
+	case videoCommand:
+		printText(colourText("Opening video...", colourCyan))
+		openYoutubeVideo("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
 	case resetCommand:
 		printText(colourText("Restarting the program", colourRed))
@@ -113,4 +119,20 @@ func printText(text string) {
 		time.Sleep(25 * time.Millisecond)
 	}
 	fmt.Println()
+}
+
+func openYoutubeVideo(url string) {
+	var cmd *exec.Cmd
+	switch runtime.GOOS {
+	case "windows":
+		cmd = exec.Command("rundll32", "url.dll,FileProtocolHandler", url)
+	case "darwin":
+		cmd = exec.Command("open", url)
+	default:
+		cmd = exec.Command("xdg-open", url)
+	}
+	err := cmd.Start()
+	if err != nil {
+		printText(colourText("Error opening YouTube video: "+err.Error(), colourRed))
+	}
 }
