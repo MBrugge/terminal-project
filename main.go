@@ -12,11 +12,12 @@ import (
 
 const (
 	helpCommand     = "help"
-	exitCommand     = "exit"
-	resetCommand    = "reset"
 	whereAmICommand = "whereami"
 	whoAmICommand   = "whoami"
 	videoCommand    = "video"
+	githubCommand   = "github"
+	resetCommand    = "reset"
+	exitCommand     = "exit"
 
 	// Colours
 	colourReset  = "\033[0m"
@@ -47,10 +48,11 @@ func handleCommand(input string) {
 	switch input {
 	case helpCommand:
 		printText(colourText("Available commands:", colourCyan))
-		printText(colourText("help - You know what this command does", colourYellow))
+		printText(colourText("help - You know what this command does.", colourYellow))
 		printText(colourText("whereami - Where am I right now?", colourYellow))
 		printText(colourText("whoami - Who am I?", colourYellow))
 		printText(colourText("video - What could this be?", colourYellow))
+		printText(colourText("github - Go to my github", colourYellow))
 		printText(colourText("reset - Reset the program", colourYellow))
 		printText(colourText("exit - Exit the program", colourYellow))
 
@@ -62,7 +64,11 @@ func handleCommand(input string) {
 
 	case videoCommand:
 		printText(colourText("Opening video...", colourCyan))
-		openYoutubeVideo("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+		openLink("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+	case githubCommand:
+		printText(colourText("Opening github...", colourCyan))
+		openLink("https://github.com/MBrugge")
 
 	case resetCommand:
 		printText(colourText("Restarting the program", colourRed))
@@ -121,7 +127,7 @@ func printText(text string) {
 	fmt.Println()
 }
 
-func openYoutubeVideo(url string) {
+func openLink(url string) {
 	var cmd *exec.Cmd
 	switch runtime.GOOS {
 	case "windows":
@@ -133,6 +139,6 @@ func openYoutubeVideo(url string) {
 	}
 	err := cmd.Start()
 	if err != nil {
-		printText(colourText("Error opening YouTube video: "+err.Error(), colourRed))
+		printText(colourText("Error opening link: "+err.Error(), colourRed))
 	}
 }
