@@ -20,7 +20,6 @@ const (
 	resetCommand        = "reset"
 	exitCommand         = "exit"
 
-	// Colours
 	colourReset  = "\033[0m"
 	colourRed    = "\033[31m"
 	colourYellow = "\033[33m"
