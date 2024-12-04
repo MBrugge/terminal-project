@@ -10,15 +10,22 @@ import (
 )
 
 const (
-	helpCommand = "help"
-	exitCommand = "exit"
+	helpCommand  = "help"
+	exitCommand  = "exit"
+	resetCommand = "reset"
+
+	// Colours
+	colourReset  = "\033[0m"
+	colourRed    = "\033[31m"
+	colourYellow = "\033[33m"
+	colourCyan   = "\033[36m"
 )
 
 func main() {
 	clearScreen()
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Println("Welcome to the terminal!")
-	fmt.Println("Type 'help' to see the available commands.")
+	fmt.Println(colourText("Welcome to the terminal!", colourCyan))
+	fmt.Println(colourText("Type 'help' to see the available commands.", colourYellow))
 
 	for {
 		fmt.Print("> ")
@@ -35,17 +42,34 @@ func main() {
 func handleCommand(input string) {
 	switch input {
 	case helpCommand:
-		fmt.Println("Available commands:")
-		fmt.Println("help - Show this help message")
-		fmt.Println("exit - Exit the game")
+		fmt.Println(colourText("Available commands:", colourCyan))
+		fmt.Println(colourText("help - Show this help message", colourYellow))
+		fmt.Println(colourText("exit - Exit the program", colourYellow))
+		fmt.Println(colourText("reset - Reset the program", colourYellow))
 
 	case exitCommand:
-		fmt.Println("Goodbye")
+		fmt.Println(colourText("Goodbye", colourRed))
 		os.Exit(0)
+
+	case resetCommand:
+		fmt.Println(colourText("Restarting the program", colourRed))
+		restartProgram()
 
 	default:
 		fmt.Println("Unknown command:", input)
 	}
+}
+
+func restartProgram() {
+	cmd := exec.Command(os.Args[0])
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Stdin = os.Stdin
+	err := cmd.Start()
+	if err != nil {
+		fmt.Println("Error restarting the program:", err)
+	}
+	os.Exit(0)
 }
 
 func clearScreen() {
@@ -58,4 +82,8 @@ func clearScreen() {
 	}
 	cmd.Stdout = os.Stdout
 	cmd.Run()
+}
+
+func colourText(text, colour string) string {
+	return colour + text + colourReset
 }
