@@ -1,4 +1,4 @@
 
 # Terminal project
 
-This is a project made with Go. There is no true purpose to this project but I was interested in learning Go so I made this. You can run various commands as visible within the help command. It should work on any of the big operating systems however, I haven't tested this.
+This is a project made with Go. There is one true purpose to this project: I was interested in learning Go, so I made this. You can run various commands as visible within the help command. It has been tested to work on Linux and Windows, other platforms may be supported but are untested.
